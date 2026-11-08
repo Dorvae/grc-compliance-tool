@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>Dashboard GRC — AtlasPay</h1>
+
+<h2>Taux de conformité par domaine</h2>
+<table>
+    <tr>
+        <th>Domaine</th>
+        <th>Référentiel</th>
+        <th>Taux de conformité</th>
+    </tr>
+    {% for d in domaines %}
+    <tr>
+        <td>{{ d.nom }}</td>
+        <td>{{ d.referentiel }}</td>
+        <td class="{% if d.taux_conformite < 30 %}taux-bas{% elif d.taux_conformite < 70 %}taux-moyen{% else %}taux-haut{% endif %}">
+            {{ d.taux_conformite }}%
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+<h2>Registre des risques</h2>
+<table>
+    <tr>
+        <th>Risque</th>
+        <th>Probabilité</th>
+        <th>Impact</th>
+        <th>Niveau résiduel</th>
+    </tr>
+    {% for r in risques %}
+    <tr>
+        <td>{{ r.nom }}</td>
+        <td>{{ r.probabilite }}</td>
+        <td>{{ r.impact }}</td>
+        <td class="{{ r.niveau_residuel|lower }}">{{ r.niveau_residuel }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}
